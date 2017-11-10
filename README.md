@@ -9,6 +9,47 @@ Pass in `--filter pandoc-mathjax-svg-filter.js` to pandoc, for example:
 
     pandoc supermath.md --filter ./pandoc-mathjax-svg-filter.js -s -t html5 -o supermath.html
 
+# Alternatives
+
+See [lierdakil/mathjax-pandoc-filter](https://github.com/lierdakil/mathjax-pandoc-filter), which is even available on NPM (and not just once but twice :P):
+
+* https://www.npmjs.com/package/mathjax-pandoc-filter
+* https://www.npmjs.com/package/mathjax-pandoc-filter-2
+
+Unfortunately when I tried it, I couldn't install the first one, and the second one randomly failed when the input file had more than a handful of math elements:
+
+    % for i in {1..10}; do echo $i; pandoc math-samples-$i.md --filter ../node_modules/mathjax-pandoc-filter-2/index.js -t html5 -o math-samples-$i.html; done
+    1
+    2
+    pandoc: Error running filter ../node_modules/mathjax-pandoc-filter-2/index.js
+    Filter returned error status -11
+    3
+    4
+    pandoc: Error running filter ../node_modules/mathjax-pandoc-filter-2/index.js
+    Filter returned error status -11
+    5
+    pandoc: Error running filter ../node_modules/mathjax-pandoc-filter-2/index.js
+    Filter returned error status -11
+    6
+    pandoc: Error running filter ../node_modules/mathjax-pandoc-filter-2/index.js
+    Filter returned error status -11
+    7
+    pandoc: Error running filter ../node_modules/mathjax-pandoc-filter-2/index.js
+    Filter returned error status -11
+    8
+    pandoc: Error running filter ../node_modules/mathjax-pandoc-filter-2/index.js
+    Filter returned error status -11
+    9
+    pandoc: Error running filter ../node_modules/mathjax-pandoc-filter-2/index.js
+    Filter returned error status -11
+    10
+    pandoc: Error running filter ../node_modules/mathjax-pandoc-filter-2/index.js
+    Filter returned error status -11
+
+(The file `math-samples-$i.md` has `i` copies of `math-samples.md`. Note that it worked for 1 and 3, but failed for the rest. I suspect some sort of concurrency issue.)
+
+But if they work for you, you should use those instead; I'm barely know what I'm doing here!
+
 # What is this?
 If you want to present mathematics nicely typeset on a web page, you have a few options. This is one of them.
 
