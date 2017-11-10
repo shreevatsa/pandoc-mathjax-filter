@@ -2,9 +2,12 @@
 A Pandoc filter for typesetting (rendering) TeX snippets server-side, using mathjax-node
 
 # Usage
+
+Make sure you have `pandoc-filter` and `mathjax-node` installed, with say `npm install pandoc-filter mathjax-node` in the directory that contains this file -- you will need at least Node 7.6 (released in February 2017).
+
 Pass in `--filter pandoc-mathjax-svg-filter.js` to pandoc, for example:
 
-    pandoc math-samples.md --filter ./pandoc-mathjax-svg-filter.js -s -t html5 -o math-samples.html
+    pandoc supermath.md --filter ./pandoc-mathjax-svg-filter.js -s -t html5 -o supermath.html
 
 # What is this?
 If you want to present mathematics nicely typeset on a web page, you have a few options. This is one of them.
@@ -23,6 +26,8 @@ For more context, see [this thread](https://github.com/jgm/pandoc/issues/3153). 
 The code is mostly straightforward and written in imitation of the example [pandoc-tex2svg](https://github.com/jgm/pandoc-tex2svg) by the author of Pandoc, and copies some code from the internals of `pandoc-filter-node` (see [here](https://github.com/mvhenderson/pandoc-filter-node/issues/7)).
 
 # TODO
-- Improve the filter (report errors etc).
+- Improve the filter (report errors, deal with TeX parse errors).
 - Add more options, such as HTML output (will need CSS and fonts) instead of SVG.
+- Should display math be wrapped in `<p align="center">`? Or some CSS needs to be included even for SVG?
+- Figure out proper way to specify dependencies and make this installable with `npm install`.
 - Publish to npm?
