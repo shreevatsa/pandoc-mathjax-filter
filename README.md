@@ -60,7 +60,7 @@ If you want to present mathematics nicely typeset on a web page, you have a few 
 What you see here in this repository is a filter that you can use with Pandoc for converting mathematics to (say) SVG.
 
 # Acknowledgements / context
-Apart from Pandoc and MathJax, it uses [pandoc-filter-node](https://github.com/mvhenderson/pandoc-filter-node).
+Apart from Pandoc and MathJax, it uses code from [pandoc-filter-node](https://github.com/mvhenderson/pandoc-filter-node).
 
 For more context, see [this thread](https://github.com/jgm/pandoc/issues/3153). Here's some background: if we use the `tex2svg` binary distributed with `mathjax-node`, and invoke the binary each time we need to convert any Math node (in Pandoc) to SVG, then we incur the cost of startup of `tex2svg` (takes about 1 second) for each bit of mathematics we need to typeset. For example, with [such a filter](https://gist.github.com/shreevatsa/7be352a692fef4cdccc76d03b9f12bf8), it [can take](https://github.com/jgm/pandoc/issues/3153#issuecomment-343199416) about a minute to typeset a mere 480-line file (which has about 90 instances of mathematics on it). Instead, with this filter (the one in this repository), the same file [may take](https://github.com/jgm/pandoc/issues/3153#issuecomment-343199416) less than two seconds to typeset.
 

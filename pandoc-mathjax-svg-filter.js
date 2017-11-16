@@ -1,7 +1,18 @@
 #!/usr/bin/env node
 
-var pandoc = require('pandoc-filter');
-var RawInline = pandoc.RawInline;
+const RawInline = function(format, string) {
+  return {
+    t: 'RawInline',
+    c: [format, string],
+  };
+};
+
+const PandocMath = function(value) {
+  return {
+    t: 'Math',
+    c: value,
+  };
+};
 
 var mjAPI = require("mathjax-node");
 mjAPI.config({
@@ -21,11 +32,16 @@ async function typesetAction(type, value, format, meta) {
       linebreaks: true,
     });
     if (!data.errors && data.svg != '') {
-      return RawInline('html', '<span class="math ' + (isInline ? 'inline' : 'display') + '">' + data.svg + '</span>');
+      if (isInline) {
+        return RawInline('html', '<span class="math inline">' + data.svg + '</span>');
+      } else {
+        return RawInline('html', '<p align="center"><span class="math display">' + data.svg + '</span></p>');
+      }
     } else {
-      return Math(type, value);
+      return PandocMath(value);
     }
   }
+  return null;
 }
 
 // Cannot use this: See https://github.com/mvhenderson/pandoc-filter-node/issues/7 (and 1)
