@@ -4,7 +4,7 @@ const pandoc = require("pandoc-filter");
 const RawInline = (string) => pandoc.RawInline('html', string);
 
 async function action({ t: type, c: value }, format, meta) {
-  if (type != 'Math') return null;
+  if (!(type == 'Math' || type == 'RawInline' && value[0] == 'tex')) return null;
   // The `value` is something like: [{"t":"InlineMath"},"\\pi r^2"]
   const isInlineMath = (value[0].t == 'InlineMath');
   const html = katex.renderToString(value[1], {

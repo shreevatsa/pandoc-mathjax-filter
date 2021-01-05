@@ -3,7 +3,7 @@ const katex = require('katex');
 
 // The "action" that is used later below
 async function typesetAction(type, value, format, meta) {
-  if (type != 'Math') return null;
+  if (!(type == 'Math' || type == 'RawInline' && value[0] == 'tex')) return null;
   console.error(`In typesetAction with value ${JSON.stringify(value)} and format ${format} and meta ${JSON.stringify(meta)}`);
   const isInline = (value[0].t == 'InlineMath');
   const html = katex.renderToString(value[1], {
@@ -76,7 +76,3 @@ async function toJSONFilter(action) {
 }
 
 toJSONFilter(typesetAction);
-// Local Variables:
-// js-indent-level: 2
-// eval: (add-hook (quote after-save-hook) (quote org-babel-tangle))
-// End:
